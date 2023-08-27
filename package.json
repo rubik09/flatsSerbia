@@ -1,0 +1,26 @@
+{
+  "name": "flatsserbia",
+  "version": "1.0.0",
+  "description": "rent flats serbia",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node --es-module-specifier-resolution=node --experimental-modules src/index.js",
+    "dev": "nodemon --es-module-specifier-resolution=node --experimental-modules src/index.js",
+    "eslint": "./node_modules/.bin/eslint .",
+    "eslint:fix": "./node_modules/.bin/eslint . --fix"
+  },
+  "author": "Roman Rubinshteyn",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "dotenv": "^16.3.1",
+    "node-cron": "^3.0.2",
+    "node-telegram-bot-api": "^0.61.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.47.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.28.1"
+  }
+}

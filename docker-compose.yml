@@ -1,0 +1,17 @@
+version: "3.7"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    environment:
+      - BOTID=${BOTID}
+      - CHANNELID=${CHANNELID}
+    restart: always
+
+
+# volumes:
+#   mysql-datavolume:
