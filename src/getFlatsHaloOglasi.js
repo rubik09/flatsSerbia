@@ -12,13 +12,17 @@ async function getFlatsHaloOglasi() {
   const matches = [...html.matchAll(regex)];
   if (matches.length > 0) {
     const links = matches.map((match) => `https://www.halooglasi.com${match[1]}`);
+    //console.log(links);
     const limitedLinks = links.slice(0, 5);
     const file = await fs.readFile('links.json', 'utf8');
     const parsedFile = JSON.parse(file);
 
     const newLinks = limitedLinks.filter((link) => {
-      const id = link.match(/\/(\d+)/)[1];
-      return !parsedFile.some((parsedLink) => parsedLink.includes(id));
+      const idMatch = link.match(/\/(\d+)\b(?!-\d)/);
+      if (idMatch) {
+        const id = idMatch[1];
+        return !parsedFile.some((parsedLink) => parsedLink.includes(`/${id}`));
+      }
     });
 
     if (newLinks.length > 0) {
