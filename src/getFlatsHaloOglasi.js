@@ -5,13 +5,13 @@ import bot from './tg';
 
 
 async function getFlatsHaloOglasi() {
-  const data = await axios.get('https://www.halooglasi.com/nekretnine/izdavanje-stanova/beograd?oglasivac_nekretnine_id_l=387237%2C387300');
+  const data = await axios.get('http://halooglasi.com/nekretnine/izdavanje-stanova/beograd?oglasivac_nekretnine_id_l=387237%2C387300');
   const html = data.data;
 
   const regex = /<h3 class="product-title">.*?<a\s+href="([^"]+)"/g;
   const matches = [...html.matchAll(regex)];
   if (matches.length > 0) {
-    const links = matches.map((match) => `https://www.halooglasi.com${match[1]}`);
+    const links = matches.map((match) => `http://halooglasi.com${match[1]}`);
     //console.log(links);
     const limitedLinks = links.slice(0, 5);
     const file = await fs.readFile('src/links.json', 'utf8');
@@ -39,7 +39,7 @@ async function getFlatsHaloOglasi() {
             const jsonObject = JSON.parse(cleanedInput);
             const otherThingsForFlat = jsonObject.OtherFields.ostalo_ss ? jsonObject.OtherFields.ostalo_ss.join(', ') : '-';
             const extraThingsForFlat = jsonObject.OtherFields.dodatno_ss ? jsonObject.OtherFields.dodatno_ss.join(', ') : '-';
-            const photosUrl = jsonObject.ImageURLs.splice(0, 9).map((item) => `https://img.halooglasi.com${item}`);
+            const photosUrl = jsonObject.ImageURLs.splice(0, 9).map((item) => `http://img.halooglasi.com${item}`);
             if(!photosUrl.length) continue;
 
             const result = `1. Цена - ${jsonObject.OtherFields.cena_d} ${jsonObject.OtherFields.cena_d_unit_s}\n2. Расположение - ${jsonObject.OtherFields.mikrolokacija_s}, ${jsonObject.OtherFields.ulica_t}\n3. Площадь - ${jsonObject.OtherFields.kvadratura_d} ${jsonObject.OtherFields.kvadratura_d_unit_s}\n4. Тип квартиры - ${jsonObject.OtherFields.broj_soba_s}\n5. Этаж - ${jsonObject.OtherFields.sprat_s}\n6. Тип отопления - ${jsonObject.OtherFields.grejanje_s}\n7. Доп. сведения - ${otherThingsForFlat}\n8. Экстра сведения - ${extraThingsForFlat}\n9. Ссылка - ${link}`;
