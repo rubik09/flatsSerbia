@@ -35,7 +35,7 @@ async function getFlatsHaloOglasi() {
         if (matchesFlats && matchesFlats.length >= 2) {
           const jsonString = matchesFlats[1];
           try {
-            const cleanedInput = jsonString.replace(/\\/g, '');
+            const cleanedInput = jsonString.replace(/\\(.)/g, "$1");
             const jsonObject = JSON.parse(cleanedInput);
             const otherThingsForFlat = jsonObject.OtherFields.ostalo_ss ? jsonObject.OtherFields.ostalo_ss.join(', ') : '-';
             const extraThingsForFlat = jsonObject.OtherFields.dodatno_ss ? jsonObject.OtherFields.dodatno_ss.join(', ') : '-';
@@ -51,7 +51,6 @@ async function getFlatsHaloOglasi() {
                 }
                 return photoToSend;
               });
-              console.log(photosToGroup)
             await bot.sendMediaGroup(CHANNELID, photosToGroup);
           } catch (err) {
             console.log('Ошибка при парсинге JSON:', err);
