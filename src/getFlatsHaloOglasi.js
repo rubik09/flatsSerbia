@@ -1,6 +1,6 @@
 import fs from 'fs/promises';
 import axios from 'axios';
-import { regexInfoForFlat, BOTID, CHANNELID , regexSearchNewFlats} from './config';
+import { regexInfoForFlat, CHANNELID , regexSearchNewFlats} from './config';
 import bot from './tg';
 
 
@@ -14,7 +14,7 @@ async function getFlatsHaloOglasi() {
     const links = matches.map((match) => `https://www.halooglasi.com${match[1]}`);
     //console.log(links);
     const limitedLinks = links.slice(0, 5);
-    const file = await fs.readFile('links.json', 'utf8');
+    const file = await fs.readFile('src/links.json', 'utf8');
     const parsedFile = JSON.parse(file);
 
     const newLinks = limitedLinks.filter((link) => {
@@ -60,7 +60,7 @@ async function getFlatsHaloOglasi() {
         }
         const updatedFile = newLinks.concat(parsedFile.slice(0, parsedFile.length - newLinks.length));
         const jsonData = JSON.stringify(updatedFile, null, 2);
-        await fs.writeFile('links.json', jsonData, 'utf8');
+        await fs.writeFile('src/links.json', jsonData, 'utf8');
       }
     } else {
       console.log('No new links found.');
