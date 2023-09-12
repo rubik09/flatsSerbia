@@ -83,7 +83,7 @@ async function getFlatsNiekretnie() {
               }
               return photoToSend;
             });
-            await bot.sendMediaGroup(-1001700970489, photosToGroup);
+            await bot.sendMediaGroup(CHANNELID, photosToGroup);
           }
         } catch (err) {
           console.log(err.message);
