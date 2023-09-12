@@ -26,9 +26,10 @@ async function getFlatsHaloOglasi() {
     });
 
     if (newLinks.length > 0) {
-      console.log('New links found:', newLinks);
+      console.log('New links found halooglasi:', newLinks);
 
       for (const link of newLinks) {
+        await new Promise((resolve) => setTimeout(resolve, 150));
         const flat = await axios.get(link);
         const htmlFlat = flat.data;
         const matchesFlats = regexInfoForFlat.exec(JSON.stringify(htmlFlat));
@@ -62,7 +63,7 @@ async function getFlatsHaloOglasi() {
         await fs.writeFile('src/links.json', jsonData, 'utf8');
       }
     } else {
-      console.log('No new links found.');
+      console.log('No new links found for halooglasi.');
     }
   }
 }
