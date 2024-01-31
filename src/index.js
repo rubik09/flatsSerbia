@@ -6,7 +6,7 @@ import getFlatsNiekretnie from "./getFlatsNiekretne";
 
 await checkFolder();
 
-cron.schedule("* * * * *", async () => {
+cron.schedule("*/2 * * * *", async () => {
   await getFlatsHaloOglasi();
 });
 cron.schedule("* * * * *", async () => {

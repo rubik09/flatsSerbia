@@ -9,7 +9,7 @@ async function getFlatsHaloOglasi() {
   let newLinks = [];
   const file = await fs.readFile('src/links.json', 'utf8');
   const parsedFile = JSON.parse(file);
-  for(let i = 1; i < PAGES_HALOOGLASI + 1; i++){
+  for(let i = 1; i < PAGES_HALOOGLASI; i++){
     await new Promise((resolve) => setTimeout(resolve, 150));
     const { data } = await axios.get(`${mainLink}&page=${i}`);
     newLinks = [...newLinks, ...await getLinks(data, parsedFile)]
